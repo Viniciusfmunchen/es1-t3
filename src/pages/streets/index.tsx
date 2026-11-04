@@ -1,9 +1,13 @@
-import { Typography } from "@mui/material"
+import StreetTable from "../../components/logradouro/tabela";
+import PageLayout from "../../layouts/page";
 
 const StreetsPage = () => {
     return (
-        <Typography variant="h1" component="h1">Ruas</Typography>
-    )
-}
+        <PageLayout title="Ruas">
+            <StreetTable />
+        </PageLayout>
+    );
+};
 
-export default StreetsPage
+export default StreetsPage;
+

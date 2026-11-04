@@ -1,9 +1,13 @@
-import { Typography } from "@mui/material"
+import NeighborhoodTable from "../../components/bairro/tabela";
+import PageLayout from "../../layouts/page";
 
 const NeighborhoodsPage = () => {
     return (
-        <Typography variant="h1" component="h1">Bairros</Typography>
-    )
-}
+        <PageLayout title="Bairros">
+            <NeighborhoodTable />
+        </PageLayout>
+    );
+};
 
-export default NeighborhoodsPage
+export default NeighborhoodsPage;
+

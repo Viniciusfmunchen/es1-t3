@@ -1,9 +1,13 @@
-import { Typography } from "@mui/material"
+import CityTable from "../../components/cidade/tabela";
+import PageLayout from "../../layouts/page";
 
 const CitiesPage = () => {
     return (
-        <Typography variant="h1" component="h1">Cidades</Typography>
-    )
-}
+        <PageLayout title="Cidades">
+            <CityTable />
+        </PageLayout>
+    );
+};
 
-export default CitiesPage
+export default CitiesPage;
+
