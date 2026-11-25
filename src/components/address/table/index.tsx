@@ -1,4 +1,5 @@
-import type { GridColDef } from "@mui/x-data-grid";
+import ClearIcon from "@mui/icons-material/Clear";
+import SearchIcon from "@mui/icons-material/Search";
 import {
     Box,
     Button,
@@ -8,15 +9,12 @@ import {
     Stack,
     TextField,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from "@mui/icons-material/Clear";
-import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
-import api from "../../../service/api";
+import type { GridColDef } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
 import useGetAll from "../../../hooks/services/getAll";
+import api from "../../../service/api";
 import type { Endereco } from "../../../types/endereco";
 import Table from "../../table";
-import CreateAddressDialog from "../form";
 
 const columns: GridColDef<Endereco>[] = [
     { field: "idEndereco", headerName: "ID", width: 90 },
@@ -48,7 +46,11 @@ const columns: GridColDef<Endereco>[] = [
 
 type SearchType = "id" | "cep";
 
-const AddressTable = () => {
+interface AddressTableProps {
+    refreshKey?: number;
+}
+
+const AddressTable = ({ refreshKey }: AddressTableProps) => {
     const {
         data: allAddresses,
         isLoading: isAllLoading,
@@ -63,7 +65,12 @@ const AddressTable = () => {
     const [searchType, setSearchType] = useState<SearchType>("cep");
     const [searchValue, setSearchValue] = useState("");
     const [isSearching, setIsSearching] = useState(false);
-    const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+    useEffect(() => {
+        if (refreshKey) {
+            refetch();
+        }
+    }, [refreshKey, refetch]);
 
     const rows = searchResults ?? allAddresses;
 
@@ -159,23 +166,7 @@ const AddressTable = () => {
                         Limpar
                     </Button>
                 )}
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<AddIcon />}
-                    onClick={() => setIsCreateOpen(true)}
-                    sx={{ ml: { sm: "auto" } }}
-                >
-                    Novo Endereço
-                </Button>
             </Box>
-
-            <CreateAddressDialog
-                open={isCreateOpen}
-                onClose={() => setIsCreateOpen(false)}
-                onSuccess={() => refetch()}
-            />
 
             <Box sx={{ flex: 1, width: "100%" }}>
                 <Table

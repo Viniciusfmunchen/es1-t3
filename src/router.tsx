@@ -1,12 +1,17 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import RootLayout from "./layouts/root";
-import { lazy } from "react";
-
-
-const Adresses = lazy(() => import("./pages/addresses"));
-const Cities = lazy(() => import("./pages/cities"));
-const Neighborhoods = lazy(() => import("./pages/neighborhoods"));
-const Streets = lazy(() => import("./pages/streets"));
+import PaginaAlugueis from "./pages/alugueis";
+import PaginaDetalhesAluguel from "./pages/alugueis/detalhes";
+import PaginaClientes from "./pages/clientes";
+import PaginaDetalhesCliente from "./pages/clientes/detalhes";
+import PaginaBairros from "./pages/endereco/bairros";
+import PaginaCidades from "./pages/endereco/cidades";
+import PaginaEnderecos from "./pages/endereco/enderecos";
+import PaginaLogradouros from "./pages/endereco/logradouros";
+import PaginaEquipamentos from "./pages/equipamentos";
+import PaginaDetalhesEquipamento from "./pages/equipamentos/detalhes";
+import PaginaTelefones from "./pages/telefones";
+import PaginaTiposEquipamento from "./pages/tipos-equipamento";
 
 export const router = createBrowserRouter([
     {
@@ -14,21 +19,120 @@ export const router = createBrowserRouter([
         element: <RootLayout />,
         children: [
             {
-                path: "enderecos",
-                element: <Adresses />,
+                index: true,
+                element: <Navigate to="/clientes" replace />,
             },
             {
-                path: "cidades",
-                element: <Cities />,
+                path: "clientes",
+                children: [
+                    {
+                        index: true,
+                        element: <PaginaClientes />,
+                    },
+                    {
+                        path: ":id",
+                        element: <PaginaDetalhesCliente />,
+                    },
+                ],
             },
             {
-                path: "bairros",
-                element: <Neighborhoods />,
+                path: "cliente",
+                children: [
+                    {
+                        index: true,
+                        element: <Navigate to="/clientes" replace />,
+                    },
+                    {
+                        path: ":id",
+                        element: <PaginaDetalhesCliente />,
+                    },
+                ],
             },
             {
-                path: "logradouros",
-                element: <Streets />,
-            }
-        ]
-    }
+                path: "telefones",
+                element: <PaginaTelefones />,
+            },
+            {
+                path: "tipos-equipamento",
+                element: <PaginaTiposEquipamento />,
+            },
+            {
+                path: "equipamentos",
+                children: [
+                    {
+                        index: true,
+                        element: <PaginaEquipamentos />,
+                    },
+                    {
+                        path: ":id",
+                        element: <PaginaDetalhesEquipamento />,
+                    },
+                ],
+            },
+            {
+                path: "equipamento",
+                children: [
+                    {
+                        index: true,
+                        element: <Navigate to="/equipamentos" replace />,
+                    },
+                    {
+                        path: ":id",
+                        element: <PaginaDetalhesEquipamento />,
+                    },
+                ],
+            },
+            {
+                path: "alugueis",
+                children: [
+                    {
+                        index: true,
+                        element: <PaginaAlugueis />,
+                    },
+                    {
+                        path: ":id",
+                        element: <PaginaDetalhesAluguel />,
+                    },
+                ],
+            },
+            {
+                path: "aluguel",
+                children: [
+                    {
+                        index: true,
+                        element: <Navigate to="/alugueis" replace />,
+                    },
+                    {
+                        path: ":id",
+                        element: <PaginaDetalhesAluguel />,
+                    },
+                ],
+            },
+            {
+                path: "endereco",
+                children: [
+                    {
+                        index: true,
+                        element: <Navigate to="/endereco/enderecos" replace />,
+                    },
+                    {
+                        path: "enderecos",
+                        element: <PaginaEnderecos />,
+                    },
+                    {
+                        path: "cidades",
+                        element: <PaginaCidades />,
+                    },
+                    {
+                        path: "bairros",
+                        element: <PaginaBairros />,
+                    },
+                    {
+                        path: "logradouros",
+                        element: <PaginaLogradouros />,
+                    },
+                ],
+            },
+        ],
+    },
 ]);

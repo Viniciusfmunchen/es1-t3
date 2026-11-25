@@ -72,6 +72,7 @@ export const NavigationButton = styled(Button, {
     minWidth: 0,
     padding: 0,
     height: 52,
+    textTransform: "none",
     backgroundColor: isActive ? theme.palette.primary.main : "transparent",
     color: isActive ? theme.palette.primary.contrastText : theme.palette.text.primary,
     transition: theme.transitions.create(["background-color", "color"], {
@@ -112,4 +113,70 @@ export const NavigationLabel = styled("span", {
     "@media (prefers-reduced-motion: reduce)": {
         transition: "none",
     },
+}));
+
+export const NavigationExpandIconWrapper = styled("span", {
+    shouldForwardProp: (prop) => prop !== "isCollapsed" && prop !== "isActive",
+})<{ isCollapsed: boolean; isActive?: boolean }>(({ theme, isCollapsed, isActive }) => ({
+    display: isCollapsed ? "none" : "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: "auto",
+    marginRight: theme.spacing(2),
+    color: isActive ? theme.palette.primary.contrastText : theme.palette.text.secondary,
+    transition: theme.transitions.create(["color", "transform"], {
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.shorter,
+    }),
+}));
+
+export const NavigationSubButton = styled(Button, {
+    shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>(({ theme, isActive }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    borderRadius: 0,
+    width: "100%",
+    minWidth: 0,
+    padding: 0,
+    paddingLeft: theme.spacing(6.5),
+    height: 42,
+    textTransform: "none",
+    backgroundColor: isActive ? theme.palette.action.selected : "transparent",
+    color: isActive ? theme.palette.primary.main : theme.palette.text.secondary,
+    fontWeight: isActive ? 600 : 500,
+    transition: theme.transitions.create(["background-color", "color"], {
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.shorter,
+    }),
+    "&:hover": {
+        backgroundColor: isActive
+            ? theme.palette.action.selected
+            : theme.palette.action.hover,
+        color: theme.palette.primary.main,
+    },
+}));
+
+export const NavigationSubBullet = styled("span", {
+    shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>(({ theme, isActive }) => ({
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    marginRight: theme.spacing(1.5),
+    backgroundColor: isActive ? theme.palette.primary.main : theme.palette.text.disabled,
+    transition: theme.transitions.create(["background-color", "transform"], {
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.shorter,
+    }),
+    transform: isActive ? "scale(1.2)" : "scale(1)",
+    flexShrink: 0,
+}));
+
+export const NavigationSubLabel = styled("span")(({ theme }) => ({
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    fontSize: theme.typography.body2.fontSize,
 }));
