@@ -63,7 +63,7 @@ const ExternalAddressSearchCard = () => {
     };
 
     return (
-        <Card variant="outlined" sx={{ mb: 3 }}>
+        <Card variant="outlined" sx={{ flexShrink: 0 }}>
             <CardContent>
                 <Stack spacing={2}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>

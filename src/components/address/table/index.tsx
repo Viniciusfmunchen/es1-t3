@@ -121,11 +121,17 @@ const AddressTable = ({ refreshKey }: AddressTableProps) => {
     };
 
     return (
-        <Stack spacing={2} sx={{ width: "100%", height: "100%" }}>
+        <Stack spacing={2} sx={{ width: "100%", flex: 1, minHeight: 360 }}>
             <Box
                 component="form"
                 onSubmit={handleSearch}
-                sx={{ display: "flex", gap: 1, alignItems: "center", flexWrap: "wrap" }}
+                sx={{
+                    display: "flex",
+                    gap: 1,
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    flexShrink: 0,
+                }}
             >
                 <FormControl size="small" sx={{ width: 110 }}>
                     <Select
@@ -168,7 +174,15 @@ const AddressTable = ({ refreshKey }: AddressTableProps) => {
                 )}
             </Box>
 
-            <Box sx={{ flex: 1, width: "100%" }}>
+            <Box
+                sx={{
+                    flex: 1,
+                    minHeight: 0,
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
                 <Table
                     data={rows}
                     columns={columns}
